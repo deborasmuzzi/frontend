@@ -1,0 +1,35 @@
+.div-teste{
+    height: 40px;
+    width: 100%;
+    margin-bottom: 50px;
+    color: white;
+    display: flex;
+    padding-top: 15px;
+
+@media(min-width: 280px){
+    justify-content: space-between;
+    height: 400px;
+    flex-direction: column;
+}
+}
+.div-botao{
+    display:flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.botao-teste{
+width:250px;
+height: 80px;
+border: solid;
+border-radius: 15px;
+background-color: yellow;
+color: blue;
+font-size: 20px;
+font-style: italic;
+font-weight: bold;
+    }
+
+.botao-antd{
+background-color: palevioletred;
+width: 200px;
+}
