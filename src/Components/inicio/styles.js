@@ -5,10 +5,15 @@ border:solid;
 height: 150px;
 width: 100%;
 margin-bottom: 50px;
-background-color: yellow;
+background-color:  #ffd100;
 color: black;
 display: flex;
 padding-top: 15px;
 font-size: 50px;
-
+html {
+    scroll-behavior: smooth;
+    @media (prefers-reduced-motion: reduce) { 
+        scroll-behavior: auto;
+    }
+}
 `

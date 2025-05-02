@@ -2,10 +2,12 @@ import BotaoPadrao from "../../Components/BotaoPadrao";
 import BotaoPadrao3 from "../../Components/BotaoPadrao/BotaoPadrao3";
 import { useNavigate } from "react-router-dom";
 import { StyleFinal } from "./final/styles";
-import BotaoCadastro1 from "./BotaoCadastro1";
 import { StyleTexto } from "./texto/style";
-import BotaoCadastro2 from "./BotaoCadastro2";
-import BotaoCadastro3 from "./BotaoCadatsro3";
+import NomeInput from "./inputs/inputnome";
+import EmailInput from "./inputs/inputemail";
+import CargoInput from "./inputs/inputcargo";
+import SenhaInput from "./inputs/inputsenha";
+import Senha2Input from "./inputs/inputsenha2";
 function Cadastro(){
     const navigate = useNavigate();
     return (
@@ -13,21 +15,11 @@ function Cadastro(){
             <StyleTexto>
                 CADASTRO
             </StyleTexto>
-            <BotaoCadastro1>
-                Nome
-            </BotaoCadastro1>
-            <BotaoCadastro2>
-                Email
-            </BotaoCadastro2>
-            <BotaoCadastro3> 
-                Cargo
-            </BotaoCadastro3>
-            <BotaoCadastro1>
-                Senha
-            </BotaoCadastro1>
-            <BotaoCadastro1>
-                Repita sua senha 
-            </BotaoCadastro1>
+            <NomeInput/>
+            <EmailInput/>
+            <CargoInput/>
+            <SenhaInput/>
+            <Senha2Input/>
             <StyleFinal>
             Já tem uma conta? Clique    <BotaoPadrao3 onClick={() => navigate("/login")}
                 >aqui

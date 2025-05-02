@@ -7,4 +7,6 @@ margin-left: 40%;
 color: white;
 display: flex;
 font-size: 23px;
+font-family: Montserrat, sans-serif;
+text-align: center;
 `

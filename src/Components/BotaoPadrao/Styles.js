@@ -8,7 +8,7 @@ export const StyleBotaoPadrao = styled.button`
         font-weight: bold;
         text-align: center;
         color: black;
-        background-color: yellow;
+        background-color: #ffd100;
         border-radius: 6px;
         border: none;
         cursor: pointer;
@@ -19,7 +19,7 @@ export const StyleBotaoPadrao = styled.button`
         
 
         &.hover {
-            background-color: yellow;
+            background-color: #ffd100;
         }
 `;
 
@@ -30,7 +30,7 @@ export const StyleBotaoPadrao2 = styled.button`
         font-weight: bold;
         text-align: center;
         color: black;
-        background-color: yellow;
+        background-color: #ffd100;
         border-radius: 6px;
         border: none;
         cursor: pointer;
@@ -39,13 +39,13 @@ export const StyleBotaoPadrao2 = styled.button`
         
 
         &.hover {
-            background-color: yellow;
+            background-color: #ffd100;
         }
 `;
 export const StyleBotaoPadrao3 = styled.button`
         font-size: 20px;
         font-weight: bold;
-        color: yellow;
+        color: #ffd100;
         background-color: black;
         border-radius: 6px;
         border: none;
@@ -64,7 +64,7 @@ export const StyleBotaoPadrao4 = styled.button`
         font-size: 20px;
         font-weight: bold;
         text-align: center;
-        color: yellow;
+        color: #ffd100;
         background-color: black;
         border-radius: 6px;
         border: none;
