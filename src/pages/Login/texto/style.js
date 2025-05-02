@@ -2,16 +2,15 @@ import styled from "styled-components";
 
 export const StyleTexto= styled.div`
 width: 100%;
-margin-top: 15px;
+margin-top: 60px;
 color:  #ffd100;
 display: flex;
 font-size: 50px;
-margin-bottom: 40px;
+margin-bottom: 120px;
 text-align: center;
-font-weight: bold;
 cursor: pointer;
+font-weight: bold;
 justify-content: center;
-text-align: center;
 
 html {
     scroll-behavior: smooth;

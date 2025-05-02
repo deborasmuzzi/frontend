@@ -25,10 +25,11 @@ function Cadastro(){
                 >aqui
                 </BotaoPadrao3>
             </StyleFinal>
-                <BotaoPadrao 
-            onClick={()=> navigate ("//")}
+            <BotaoPadrao 
+            onClick={()=> navigate ("/")}
                 >CRIAR CONTA
             </BotaoPadrao>
+    
         </div>
     )
 }

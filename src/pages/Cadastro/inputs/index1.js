@@ -1,1 +1,1 @@
-export {default} from "./inputs/inputnome"
+export {default} from "./inputnome"
