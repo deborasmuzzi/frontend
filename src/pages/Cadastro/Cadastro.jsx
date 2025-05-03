@@ -1,13 +1,13 @@
 import BotaoPadrao from "../../Components/BotaoPadrao";
 import BotaoPadrao3 from "../../Components/BotaoPadrao/BotaoPadrao3";
 import { useNavigate } from "react-router-dom";
-import { StyleFinal } from "./final/styles";
-import { StyleTexto } from "./texto/style";
-import NomeInput from "./inputs/inputnome";
-import EmailInput from "./inputs/inputemail";
-import CargoInput from "./inputs/inputcargo";
-import SenhaInput from "./inputs/inputsenha";
-import Senha2Input from "./inputs/inputsenha2";
+import { StyleFinal } from "../../Components/final/styles";
+import { StyleTexto } from "../../Components/texto2/style";
+import NomeInput from "../../Components/inputs/inputnome";
+import EmailInput from "../../Components/inputs/inputemail";
+import CargoInput from "../../Components/inputs/inputcargo";
+import SenhaInput from "../../Components/inputs/inputsenha";
+import Senha2Input from "../../Components/inputs/inputsenha2";
 function Cadastro(){
     const navigate = useNavigate();
     return (

@@ -2,10 +2,10 @@
 import { useNavigate } from "react-router-dom";
 import BotaoPadrao4 from "../../Components/BotaoPadrao/BotaoPadrao4";
 import BotaoPadrao2 from "../../Components/BotaoPadrao/BotaoPadrao2";
-import { StyleTexto } from "./texto/style";
-import EmailInput from "./inputs/inputemail";
-import SenhaInput from "./inputs/inputsenha";
-import { StyleFinal } from "./final/styles";
+import { StyleTexto } from "../../Components/texto2/style";
+import { StyleFinal } from "../../Components/final2/styles";
+import EmailInput from "../../Components/inputs/inputemail";
+import SenhaInput from "../../Components/inputs/inputsenha";
 function Login(){
     const navigate = useNavigate();
     return (

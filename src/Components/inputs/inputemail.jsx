@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleInput} from '../Styles';
+import { StyleInput} from '../../pages/Cadastro/Styles';
 
 function EmailInput() {
   const [email, setEmail] = useState('');
@@ -8,13 +8,11 @@ function EmailInput() {
   };
 
   return (
-    <StyleInput>
-     <input
+    <StyleInput
         type="email"
         placeholder="Email"
         value={email}
         onChange={handleChange}/>
-    </StyleInput>
 
   );
 }

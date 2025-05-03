@@ -6,7 +6,6 @@ margin-top: 15px;
 color:  #ffd100;
 display: flex;
 font-size: 50px;
-margin-bottom: 40px;
 text-align: center;
 font-weight: bold;
 cursor: pointer;

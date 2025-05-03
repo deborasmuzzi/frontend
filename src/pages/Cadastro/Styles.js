@@ -8,8 +8,8 @@ export const Container = styled.div`
     height: 100%;
     }
 `;
-export const StyleInput = styled.div`
-        font-size: 70px;
+export const StyleInput = styled.input`
+        font-size: 30px;
         color: gray;
         background-color: white;
         border-radius: 20px;

@@ -4,7 +4,7 @@ export const StyleBotaoPadrao = styled.button`
     display: inline-block;
         padding: 25px;
         font-size: 30px;
-        width: 28%;
+        width: 40%;
         font-weight: bold;
         text-align: center;
         color: black;
@@ -15,7 +15,7 @@ export const StyleBotaoPadrao = styled.button`
         transition: background-color 0.3s ease;
         justify-content: flex-end;
         margin-top: 20px;
-        margin-left: 36%;
+        margin-left: 30%;
         
 
         &.hover {

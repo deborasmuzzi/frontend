@@ -7,7 +7,7 @@ export const Container = styled.div`
     grid-template-rows: auto ifr;
     height: 100%;
 `;
-export const StyleInput = styled.div`
+export const StyleInput = styled.input`
         font-size: 70px;
         color: gray;
         background-color: white;
@@ -16,8 +16,6 @@ export const StyleInput = styled.div`
         cursor: pointer;
         width: 50%;
         height: 70px;
-        margin-left: 25%;
-        margin-bottom: 60px;
         outline:none;
         margin-top:20px;
     

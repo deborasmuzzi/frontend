@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleInput } from '../Styles';
+import { StyleInput } from '../../pages/Cadastro/Styles';
 
 function CargoInput() {
   const [cargo, setCargo] = useState('');
@@ -8,13 +8,11 @@ function CargoInput() {
   };
 
   return (
-    <StyleInput>
-     <input
+    <StyleInput
         type="cargo"
         placeholder="Cargo"
         value={cargo}
         onChange={handleChange}/>
-    </StyleInput>
 
   );
 }

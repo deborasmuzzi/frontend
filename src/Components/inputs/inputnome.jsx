@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
-import { Container, StyleInput } from '../Styles';
+import { Container, StyleInput } from '../../pages/Cadastro/Styles';
 
 function NomeInput() {
   const [nome, setNome] = useState('');
 
   return (
-  <StyleInput>
-     <input
+  <StyleInput
         type="text"
         placeholder="Nome"
         value={nome}
         onChange={(e) => setNome(e.target.value)}/>
-    </StyleInput>
   );
 }
 

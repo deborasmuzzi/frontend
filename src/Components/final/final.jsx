@@ -1,5 +1,5 @@
 import { StyleFinal } from "./styles";
-import { StyleBotaoPadrao3 } from "../../../Components/BotaoPadrao/Styles";
+import { StyleBotaoPadrao3 } from "../Components/BotaoPadrao/Styles";
 
 function final() {
     return (
