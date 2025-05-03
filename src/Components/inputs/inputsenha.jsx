@@ -10,7 +10,7 @@ function SenhaInput() {
   return (
   <StyleInput
           type={mostrarSenha ? 'text' : 'password'}
-          placeholder="Digite sua senha"
+          placeholder="Senha"
           value={senha}
           onChange={(e) => setSenha(e.target.value)}/>
     

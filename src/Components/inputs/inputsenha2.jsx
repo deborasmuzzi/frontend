@@ -6,7 +6,7 @@ function Senha2Input() {
   return (
     <StyleInput
           type="text"
-          placeholder="Repita sua senha"
+          placeholder="Confirme sua senha"
           value={senha}
           onChange={(e) => setNome(e.target.value)}/>
     );

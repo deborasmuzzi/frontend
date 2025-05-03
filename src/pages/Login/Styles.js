@@ -14,10 +14,11 @@ export const StyleInput = styled.input`
         border-radius: 20px;
         border: none;
         cursor: pointer;
-        width: 50%;
-        height: 70px;
+        width: 75%;
+        height: 80x;
         outline:none;
         margin-top:20px;
+        margin-bottom:20px;
     
     
         

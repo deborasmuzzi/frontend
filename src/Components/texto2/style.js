@@ -10,6 +10,7 @@ text-align: center;
 cursor: pointer;
 font-weight: bold;
 justify-content: center;
+margin-bottom: 40px;
 
 html {
     scroll-behavior: smooth;

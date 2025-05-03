@@ -21,6 +21,7 @@ export const StyleInput = styled.input`
         margin-bottom: 10px;
         outline:none;
         margin-top:50px;
+        padding-left: 10px;
     
         
 `;

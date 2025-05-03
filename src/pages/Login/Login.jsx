@@ -15,14 +15,14 @@ function Login(){
             </StyleTexto>
             <EmailInput/>
             <SenhaInput/>
-            <BotaoPadrao2 onClick={() => navigate("/")}>
-                ENTRAR
-            </BotaoPadrao2>
             <StyleFinal>
                 Não tem login? Faça seu cadastro   <BotaoPadrao4 onClick={() => navigate("/cadastro")}>
                 aqui
             </BotaoPadrao4>
             </StyleFinal>
+            <BotaoPadrao2 onClick={() => navigate("/")}>
+                ENTRAR
+            </BotaoPadrao2>
             
         </div>
     )
