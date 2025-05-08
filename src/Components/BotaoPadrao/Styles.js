@@ -25,14 +25,14 @@ export const StyleBotaoPadrao = styled.button`
 
 export const StyleBotaoPadrao2 = styled.button`
   display: inline-block;
-        padding: 30px;
+        padding: 15px;
         font-size: 30px;
         width: 28%;
         font-weight: bold;
         text-align: center;
         color: black;
         background-color: #ffd100;
-        border-radius: 6px;
+        border-radius: 15px;
         border: none;
         cursor: pointer;
         transition: background-color 0.3s ease;

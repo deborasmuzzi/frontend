@@ -21,7 +21,7 @@ function Login(){
             </BotaoPadrao4>
             </StyleFinal>
             <BotaoPadrao2 onClick={() => navigate("/")}>
-                ENTRAR
+                FAZER LOGIN
             </BotaoPadrao2>
             
         </div>
