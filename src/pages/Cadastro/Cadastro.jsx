@@ -21,7 +21,7 @@ function Cadastro(){
             <SenhaInput/>
             <Senha2Input/>
             <StyleFinal>
-            Já tem uma conta? Clique    <BotaoPadrao3 onClick={() => navigate("/login")}
+            Já tem uma conta? Clique    <BotaoPadrao3 onClick={() => navigate("/")}
                 >aqui
                 </BotaoPadrao3>
             </StyleFinal>

@@ -20,7 +20,7 @@ function Login(){
                 aqui
             </BotaoPadrao4>
             </StyleFinal>
-            <BotaoPadrao2 onClick={() => navigate("/")}>
+            <BotaoPadrao2 onClick={() => navigate("/home")}>
                 FAZER LOGIN
             </BotaoPadrao2>
             
