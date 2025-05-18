@@ -2,13 +2,13 @@ import {useQuery, useMutation} from "@tanstack/react-query"
 import { CreateUsuario, DeleteUsuario, GetUsuarios, UpdateUsuario} from "../services/api/endpoints"
 
 export function useCreateUsuario({
-    onSucess = () => (), 
-    onError = () => (),
+    onSuccess = () => {}, 
+    onError = () => {},
      } = {})
-{return useMutation({mutationFn: CreateUsuario, onSuccess});
+{return useMutation({mutationFn: CreateUsuario, onSuccess, onError});
 } 
 
-export function useGetUsuarios({onSucess = () => (), onError = () => (), } = {}) {
+export function useGetUsuarios({onSuccess = () => {}, onError = () => {}, } = {}) {
     return useQuery({
     queryKey:["usuarios"],
     queryFn: GetUsuarios,
@@ -18,15 +18,15 @@ export function useGetUsuarios({onSucess = () => (), onError = () => (), } = {})
 
 
 export function useUpdateUsuario({
-    onSucess = () => (), 
-    onError = () => (),
+    onSuccess = () => {}, 
+    onError = () => {},
      } = {})
-{return useMutation({mutationFn: UpdateUsuario, onSuccess});
+{return useMutation({mutationFn: UpdateUsuario, onSuccess, onError});
 } 
 
 export function useDeleteUsuario({
-    onSucess = () => (), 
-    onError = () => (),
+    onSuccess = () => {}, 
+    onError = () => {},
      } = {})
-{return useMutation({mutationFn: DeleteUsuario, onSuccess});
+{return useMutation({mutationFn: DeleteUsuario, onSuccess, onError});
 } 

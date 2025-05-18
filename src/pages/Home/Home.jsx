@@ -2,7 +2,7 @@
 import { Container } from "./Styles";
 import { StyledForm } from "./Styles";
 import {useForm} from "react-hook-form";
-import { useCreateUsuario } from "../../hooks/user";
+import { useCreateUsuario, useGetUsuarios} from "../../hooks/user";
 
 
 function Home(){
@@ -14,11 +14,12 @@ function Home(){
     }
 
     const {mutate: postUsuario, isPending} = useCreateUsuario({});
+    const {data: usuarios, isLoading}= useGetUsuarios({});
     function response(data){
-        console.log("cheguei na função");
         postUsuario(data);
     }
     return (
+
     <Container>
     <StyledForm onSubmit={handleSubmit(response)}>
         <input {...register("nome")} placeholder="nome"></input>
@@ -26,6 +27,12 @@ function Home(){
         <input {...register("senha")} placeholder="senha"></input>
         <button>enviar</button>
         </StyledForm>
+        {isLoading ? (
+            <p>carregando</p>) : (
+        usuarios.map((usuario) => {
+        return <div>{usuario?.nome}</div>;
+        })
+        )}
     </Container>
     )
 }
