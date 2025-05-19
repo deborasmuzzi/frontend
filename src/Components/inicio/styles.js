@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const StyleInicio= styled.div`
 border:solid;
-height: 150px;
+height: 100px;
 width: 100%;
-margin-bottom: 50px;
+margin-bottom: 20px;
 background-color:  #ffd100;
 color: black;
 display: flex;

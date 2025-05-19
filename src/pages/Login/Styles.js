@@ -6,6 +6,10 @@ export const Container = styled.div`
     align-items: center;
     grid-template-rows: auto ifr;
     height: 100%;
+      @media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
 `;
 export const StyleInput = styled.input`
         font-size: 70px;
@@ -19,7 +23,10 @@ export const StyleInput = styled.input`
         outline:none;
         margin-top:20px;
         margin-bottom:20px;
-    
+    @media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
     
         
 `;

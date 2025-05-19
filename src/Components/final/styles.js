@@ -10,4 +10,8 @@ font-family: Montserrat, sans-serif;
 text-align: center;
 place-items: center;
 justify-content: center;
+@media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
 `

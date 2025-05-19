@@ -21,6 +21,10 @@ export const StyleBotaoPadrao = styled.button`
         &.hover {
             background-color: #ffd100;
         }
+  @media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
 `;
 
 export const StyleBotaoPadrao2 = styled.button`
@@ -44,6 +48,10 @@ export const StyleBotaoPadrao2 = styled.button`
         &.hover {
             background-color: #ffd100;
         }
+  @media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
 `;
 export const StyleBotaoPadrao3 = styled.button`
         font-size: 20px;
@@ -60,6 +68,10 @@ export const StyleBotaoPadrao3 = styled.button`
         &.hover {
             background-color: black;
         }
+  @media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
 `;
 export const StyleBotaoPadrao4 = styled.button`
  font-size: 20px;
@@ -76,6 +88,14 @@ export const StyleBotaoPadrao4 = styled.button`
         &.hover {
             background-color: black;
         }
+    @media (max-width: 409px) {
+    font-size: 14px;
+    padding: 8px;
+  }
+  @media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
 `;
 export const texto = styled.button`
  display: inline-block;
@@ -95,4 +115,8 @@ export const texto = styled.button`
         &.hover {
             background-color: black;
         }
+    @media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
 `;

@@ -11,6 +11,10 @@ font-weight: bold;
 cursor: pointer;
 justify-content: center;
 text-align: center;
+@media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
 
 html {
     scroll-behavior: smooth;
