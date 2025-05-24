@@ -4,7 +4,7 @@ export const StyleInicio= styled.div`
 border:solid;
 height: 100px;
 width: 100%;
-margin-bottom: 20px;
+margin-bottom: 30px;
 background-color:  #ffd100;
 color: black;
 display: flex;

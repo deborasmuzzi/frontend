@@ -21,8 +21,9 @@ export const StyledForm = styled.form `
 export const StyledCrsl = styled.div`
  width:20%;
 border-radius: 50px;
-margin-top: 20px;
-margin-bottom:10px;
+margin: auto;
+margin-top: 10px;
+
 @media (max-width: 320px) {
   .carousel-wrapper {
     width: 95%;

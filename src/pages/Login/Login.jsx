@@ -1,4 +1,4 @@
-
+import { StyleInicio } from "../../Components/inicio/styles";
 import { useNavigate } from "react-router-dom";
 import BotaoPadrao4 from "../../Components/BotaoPadrao/BotaoPadrao4";
 import BotaoPadrao2 from "../../Components/BotaoPadrao/BotaoPadrao2";
