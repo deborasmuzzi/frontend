@@ -41,7 +41,7 @@ postUsuario(data);
             </BotaoPadrao>
              </StyledForm>
             <StyleFinal>
-            Já tem uma conta? Clique    <BotaoPadrao3 onClick={() => navigate("/")}
+            Já tem uma conta? Clique <BotaoPadrao3 onClick={() => navigate("/")}
                 >aqui
                 </BotaoPadrao3>
             </StyleFinal>
