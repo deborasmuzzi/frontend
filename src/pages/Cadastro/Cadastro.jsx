@@ -21,6 +21,7 @@ const {mutate: postUsuario, isPending} = useCreateUsuario({});
 
 function response(data){
 postUsuario(data);
+console.log("dados:", data);
 }
 
 
