@@ -11,6 +11,12 @@ export const Container = styled.div`
     padding: 8px;
   }
 `;
+
+
+export const Form = styled.form`
+`
+export const Campo = styled.div``
+export const Label = styled.div``
 export const StyleInput = styled.input`
         font-size: 70px;
         color: gray;
@@ -27,6 +33,5 @@ export const StyleInput = styled.input`
     font-size: 14px;
     padding: 8px;
   }
-    
-        
 `;
+export const Button = styled.button``

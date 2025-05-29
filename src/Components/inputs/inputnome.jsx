@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
-import { Container, StyleInput } from '../../pages/Cadastro/Styles';
 
-function NomeInput() {
-  const [nome, setNome] = useState('');
+import {StyleInput } from '../../pages/Cadastro/Styles';
 
-  return (
-  <StyleInput
-        type="text"
-        placeholder="Nome"
-        value={nome}
-        onChange={(e) => setNome(e.target.value)}/>
-  );
+function NomeInput(props) {
+  return <StyleInput {...props}/>
 }
 
 export default NomeInput;

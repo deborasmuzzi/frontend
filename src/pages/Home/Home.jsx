@@ -5,12 +5,16 @@ import { useCreateUsuario, useGetUsuarios} from "../../hooks/user";
 import { Carousel} from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEffect } from "react";
-
+import { useQueryClient } from "@tanstack/react-query";
+import {toast} from "react-toastify";
 
 function Home(){
-
+const queryClient = useQueryClient();
 const {handleSubmit, register, formState: {errors} } = useForm({});
-const {mutate: postUsuario, isPending} = useCreateUsuario({});
+const {mutate: postUsuario, isPending} = useCreateUsuario(
+    {onSuccess: () => {queryClient.invalidateQueries({
+        queryKey:["usuarios"],
+    })}});
 const {data: usuarios, isLoading} = useGetUsuarios({});
 
 useEffect(() => {

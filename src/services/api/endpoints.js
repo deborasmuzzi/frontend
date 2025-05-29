@@ -5,7 +5,6 @@ export async function GetUsuarios() {
     return data;
 }
 export async function CreateUsuario(body) {
-    console.log("cheguei na endpoint")
     const {data} =  await api.post(`/usuario`, body);
     console.log(data)
     return data;

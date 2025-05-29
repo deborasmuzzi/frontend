@@ -1,17 +1,11 @@
 import { useState } from 'react';
 import { StyleInput} from '../../pages/Cadastro/Styles';
-function Senha2Input() {
-  const [senha, setSenha] = useState('')
+function Senha2Input(props) {
     const [mostrarSenha] = useState(false);
 
 
-  return (
-    <StyleInput
-         type={mostrarSenha ? 'text' : 'password'}
-          placeholder="Confirme sua senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}/>
-    );
+  return <StyleInput {...props}
+         type={mostrarSenha ? 'text' : 'password'}/>
 }
 export default Senha2Input;
 
