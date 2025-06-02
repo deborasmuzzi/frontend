@@ -13,7 +13,7 @@ import { useAuthStore } from "./stores/auth";
 function RotasPrivadas (){
     const token = useAuthStore((state)=>state.token);
 
-    if(!token) return <Outlet/>;
+    if(token) return <Outlet/>;
 
     return <Navigate to = "/" replace />
 }
