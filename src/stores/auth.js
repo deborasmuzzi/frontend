@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import {persist} from "zustand/middleware"
-import jwtDecode from "jwt-decode"
+import {jwtDecode} from "jwt-decode"
 
-const useAuthStore = create(
+export const useAuthStore = create(
     persist(
         (set) => ({
             token: null,
@@ -12,6 +12,7 @@ const useAuthStore = create(
                 set({token, usuario});
             },
             setUsuario: (usuario) => setUsuario({usuario}),
+            clearAuth : () => set({token: null, usuario: null}),
  
 }),
         {
@@ -19,5 +20,3 @@ const useAuthStore = create(
         }
     )
 );
-
-export default useAuthStore;

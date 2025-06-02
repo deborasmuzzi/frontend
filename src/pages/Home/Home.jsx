@@ -6,7 +6,7 @@ import { Carousel} from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import {toast} from "react-toastify";
+
 
 function Home(){
 const queryClient = useQueryClient();
@@ -54,7 +54,7 @@ return (
 )}
 
 <StyledCrsl>
-<Carousel autoPlay infiniteLoop showThumbs={false}>
+<Carousel centerMode autoPlay infiniteLoop showThumbs={false}>
 {
 images.map (image => <img src={image.download_url}/>)
 }

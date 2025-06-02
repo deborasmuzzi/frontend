@@ -1,5 +1,5 @@
 
-import { StyleInicio } from "../../Components/inicio/styles";
+import Header from "../../Components/header/Header"
 import { Container } from "./styles";
 import {Outlet} from "react-router-dom";
 
@@ -9,7 +9,7 @@ export default function AppLayout (){
     return ( 
 
         <Container> 
-        <StyleInicio>cpe</StyleInicio>
+        <Header></Header>
         <Outlet /> 
         </Container>
     
