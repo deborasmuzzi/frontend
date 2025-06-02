@@ -1,0 +1,13 @@
+import styled from "styled-components";
+
+export const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-template-rows: auto ifr;
+    height: 100%;
+      @media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
+`;
