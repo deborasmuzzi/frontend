@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const StyleHeader= styled.div`
 border:solid;
@@ -7,9 +8,11 @@ width: 100%;
 margin-bottom: 30px;
 background-color:  #ffd100;
 color: black;
+text-decoration-color: black;
 display: flex;
 padding-top: 15px;
-font-size: 50px;
+align-items: center;
+font-size: 30px;
 gap: 20px;
 html {
     scroll-behavior: smooth;
@@ -18,12 +21,32 @@ html {
     }
 }
 `
-export const Container = styled.div`
-    @media (max-width: 280px){
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    grid-template-rows: auto ifr;
-    height: 100%;
+export const StyleBotaoDeslog = styled.button`
+  display: inline-block;
+        padding: 15px;
+        font-size: 30px;
+        width: 28%;
+        font-weight: bold;
+        text-align: center;
+        color: black;
+        background-color: #ffd100;
+        border-radius: 15px;
+        border: none;
+        cursor: pointer;
+   
+ 
+  
+       
+`;
+
+export const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: color 0.3s;
+    
+
+    &:hover {
+        color: #005fa3;
     }
 `;

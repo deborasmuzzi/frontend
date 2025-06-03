@@ -1,8 +1,13 @@
-import { Container } from "./Styles";
-
+import { Container} from "./Styles";
+import {useAuthStore} from "../../stores/auth"
+import Usuario from "../../Components/Usuario/Usuario";
 
 export default function Perfil(){
+    const usuario = useAuthStore((state)=> state.usuario);
+
     return (
-        <Container>perfil</Container>
+        <Container>
+            <Usuario usuario = {usuario}/>
+        </Container>
     )
 }

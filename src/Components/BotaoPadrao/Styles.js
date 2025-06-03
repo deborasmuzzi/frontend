@@ -120,3 +120,5 @@ export const texto = styled.button`
     padding: 8px;
   }
 `;
+
+

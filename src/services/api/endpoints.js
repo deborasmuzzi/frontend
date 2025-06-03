@@ -25,10 +25,11 @@ export async function DeleteSessao(id_usuario) {
 }
 
 export async function CreateSessao(id_usuario) {
-    const {data} = await api.delete(`/sessao:${id_usuario}`);
+    const {data} = await api.post(`/sessao:${id_usuario}`);
     return data;
 }
 export async function GetSessoes() {
     const {data} = await api.get(`/sessoes`);
     return data;
 }
+

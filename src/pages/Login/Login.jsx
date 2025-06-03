@@ -9,6 +9,7 @@ import SenhaInput from "../../Components/inputs/inputsenha";
 import {useState} from "react";
 import api from "../../services/api/api";
 import {useAuthStore} from "../../stores/auth";
+import Header from "../../Components/header/Header";
 
 
 function Login(){
