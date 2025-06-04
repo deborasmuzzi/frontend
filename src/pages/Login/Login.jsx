@@ -27,10 +27,10 @@ function Login(){
         setCarregando(true);
        const res = await api.post("/", {email, senha});
         const {token} = res.data;
-
+        
         setToken(token);
         navigate("/home")
-        
+      
     } catch (erro) {
         console.error(erro);
         alert(erro.response.data.message);

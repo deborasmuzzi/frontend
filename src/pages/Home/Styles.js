@@ -2,24 +2,28 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: center; 
+    flex-direction: column;
     align-items: center;
     grid-template-rows: auto ifr;
-    height: 100%;
+   min-height: 100vh;
+    padding: 20px;
+
     @media (max-width: 280px){
 
     }
 `;
 
 export const StyledForm = styled.form `
+   width: 90%; 
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    
+     margin-left: 0;
+    margin-right: auto;
+    justify-content: flex-end;
 `;
 
 export const StyledCrsl = styled.div`
- width:20%;
+ width:25%;
 border-radius: 50px;
 margin: auto;
 margin-top: 10px;
@@ -44,4 +48,51 @@ margin-top: 10px;
   }
 }
   `
-   
+export const StyleBotaoLogarSessao = styled.button`
+ font-size: 20px;
+        font-weight: bold;
+        color: #ffd100;
+        background-color: black;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-left: 9px;
+        
+
+        &.hover {
+            background-color: black;
+        }
+    @media (max-width: 409px) {
+    font-size: 14px;
+    padding: 8px;
+  }
+  @media (max-width: 280px) {
+    font-size: 14px;
+    padding: 8px;
+  }
+`;
+
+export const StyleBotaoDeslog = styled.button`
+font-size: 20px;
+        color: #ffd100;
+        background-color: black;
+        border-radius: 6px;
+        border: 2px solid #ffd100;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-left: 9px;
+        
+
+        &.hover {
+            background-color: black;
+        }
+    @media (max-width: 409px) {
+    font-size: 6px;
+
+  }
+  @media (max-width: 280px) {
+    font-size: 6px;
+
+  }
+`;

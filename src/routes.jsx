@@ -6,7 +6,7 @@ import{
     Outlet,
     Navigate
 } from "react-router-dom";
-import { Login, Cadastro, Home, Perfil} from "./pages";
+import { Login, Cadastro, Home, Perfil, Usuario1} from "./pages";
 import { AppLayout } from "./layouts";
 import { useAuthStore } from "./stores/auth";
 
@@ -24,6 +24,7 @@ const router = createBrowserRouter (
             <Route element = {<RotasPrivadas/>}>
             <Route path="home" element={<Home/>}/>
             <Route path="perfil" element={<Perfil/>}/>
+            <Route path="usuario" element={<Usuario1/>}/>
             </Route>
             <Route index element={<Login/>}/>
             <Route path="cadastro" element={<Cadastro/>}/>

@@ -10,13 +10,12 @@ export default function Header() {
     return (
         <StyleHeader>
             cpe
-
         { usuario && (
             <>
-            <StyledLink to ="/home" >cpe</StyledLink>
+            <StyledLink to ="/home" ></StyledLink>
             <StyledLink to = "/perfil"> perfil </StyledLink>
             <StyledLink to = "/usuario"> usuário</StyledLink>
-            <StyleBotaoDeslog type = "button" onClick= {clearAuth}>Deslogar</StyleBotaoDeslog>
+          
             </>
         )}
         </StyleHeader>

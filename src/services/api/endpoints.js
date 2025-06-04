@@ -10,7 +10,7 @@ export async function CreateUsuario(body) {
     return data;
 }
 export async function UpdateUsuario(id, body) {
-    const {data} = await api.put(`/usuario:${id}`, body);
+    const {data} = await api.put(`/usuario/${id}`, body);
     return data;
 }
 export async function DeleteUsuario(id) {
@@ -20,12 +20,12 @@ export async function DeleteUsuario(id) {
 //entidades2
 
 export async function DeleteSessao(id_usuario) {
-    const {data} = await api.delete(`/sessao:${id_usuario}`);
+    const {data} = await api.delete(`/sessao/${id_usuario}`);
     return data;
 }
 
 export async function CreateSessao(id_usuario) {
-    const {data} = await api.post(`/sessao:${id_usuario}`);
+    const {data} = await api.post(`/sessao` , {id_usuario: id_usuario});
     return data;
 }
 export async function GetSessoes() {

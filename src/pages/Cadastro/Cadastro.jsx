@@ -9,9 +9,9 @@ import EmailInput from "../../Components/inputs/inputemail";
 import CargoInput from "../../Components/inputs/inputcargo";
 import SenhaInput from "../../Components/inputs/inputsenha";
 import Senha2Input from "../../Components/inputs/inputsenha2";
-import { useCreateUsuario, useGetUsuarios } from "../../hooks/user";
+import { useCreateUsuario} from "../../hooks/user";
 import {useForm} from "react-hook-form";
-import { StyledForm } from "../Home/Styles";
+import  {Form} from "./Styles";
 import { toast } from "react-toastify";
 import { usuarioVallidationSchema } from "./utils";
 import {zodResolver} from "@hookform/resolvers/zod"
@@ -22,7 +22,7 @@ const navigate = useNavigate();
 const {handleSubmit, register, reset, formState: {errors} 
 } = useForm({resolver: zodResolver(usuarioVallidationSchema)});
 const {mutate: postUsuario, isPending} = useCreateUsuario({
-    onSuccess: () => {
+    onSuccess: (data) => {
         toast.success("usuario cadastrado com sucesso");
         navigate("/");
 },
@@ -43,7 +43,7 @@ reset();
             <StyleTexto>
                 CADASTRO
             </StyleTexto>
-            <StyledForm onSubmit={handleSubmit(response)}>
+            <Form onSubmit={handleSubmit(response)}>
             <div>
             <NomeInput {...register("nome")} placeholder="Nome"></NomeInput>
             {errors.nome &&<p>{errors.nome.message}</p>}
@@ -65,7 +65,7 @@ reset();
             {errors.senha2 &&<p>{errors.senha2.message}</p>}
             </div>
              <BotaoPadrao type="submit">CRIAR CONTA  </BotaoPadrao>
-             </StyledForm>
+             </Form>
             <StyleFinal>
             Já tem uma conta? Clique <BotaoPadrao3 onClick={() => navigate("/")}
                 >aqui

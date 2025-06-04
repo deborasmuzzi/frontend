@@ -1,74 +1,175 @@
 import { Container, StyledCrsl } from "./Styles";
-import { StyledForm } from "./Styles";
+import { StyledForm, StyleBotaoDeslog} from "./Styles";
 import {useForm} from "react-hook-form";
-import { useCreateUsuario, useGetUsuarios} from "../../hooks/user";
+import { useCreateSessao, useGetSessoes} from "../../hooks/sessoes";
 import { Carousel} from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import Sessao from "../../Components/Sessoes/Sessoes";
+import React, { useState} from 'react';
+import { useNavigate } from "react-router-dom";
+import { Button, Modal, Table } from 'antd';
+import BotaoPadrao from "../../Components/BotaoHome/BotaoHome"
 import { useAuthStore } from "../../stores/auth";
-import Usuario from "../../Components/Usuario/Usuario"
+import { toast } from "react-toastify";
+
 
 
 function Home(){
-const queryClient = useQueryClient();
-const usuario = useAuthStore((state) => state.usuario);
-const {handleSubmit, register, formState: {errors} } = useForm({});
-const {mutate: postUsuario, isPending} = useCreateUsuario(
-    {onSuccess: () => {queryClient.invalidateQueries({
-        queryKey:["usuarios"],
-    })}});
-const {data: usuarios, isLoading} = useGetUsuarios({});
+  const clearAuth = useAuthStore((state) => state.clearAuth);
+  const usuario = useAuthStore((state) => state.usuario); 
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const queryClient = useQueryClient();
 
-useEffect(() => {
-if (usuarios) {
-console.log("USUÁRIOS:", usuarios);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
 
-}
-}, [usuarios]);
+
+  const { mutate: postSessao, isPending: isCreatingSessao } = useCreateSessao({
+    onSuccess: (usuario) => {
+     toast.success("usuario cadastrado com sucesso");
+      setIsModalOpen(false); 
+      
+    },
+    onError: (error) => {
+      toast.error("Erro ao iniciar sessão:");
+    }
+  });
+
+
+  const {data: sessoes, isLoading: isLoadingSessoes} = useGetSessoes({});
+
+  const onSubmit = () => {
+    if (!usuario?._id){
+      console.error("Usuário não encontrado. Você está logado?")
+    }
+    else {
+      postSessao({id_usuario: usuario?._id});
+    }
+  };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleLogout = () => {
+    clearAuth();
+    navigate("/"); 
+  };
 
 function response(data){
-postUsuario(data);
-console.log(data);
+postSessao(data);
+console.log("dados:", data);
+reset();
 }
 
-const listaUsuarios = Array.isArray(usuarios) ? usuarios : [];
-const images = [
-{"id":"102","author":"Ben Moore","width":4320,"height":3240,"url":"https://unsplash.com/photos/pJILiyPdrXI","download_url":"https://picsum.photos/id/102/4320/3240"},
-{"id":"103","author":"Ilham Rahmansyah","width":2592,"height":1936,"url":"https://unsplash.com/photos/DwTZwZYi9Ww","download_url":"https://picsum.photos/id/103/2592/1936"},
-{"id":"106","author":"Arvee Marie","width":2592,"height":1728,"url":"https://unsplash.com/photos/YnfGtpt2gf4","download_url":"https://picsum.photos/id/106/2592/1728"},
-{"id":"108","author":"Florian Klauer","width":2000,"height":1333,"url":"https://unsplash.com/photos/t1mqA3V3-7g","download_url":"https://picsum.photos/id/108/2000/1333"},
-{"id":"120","author":"Guillaume","width":4928,"height":3264,"url":"https://unsplash.com/photos/_DA3D5P71qs","download_url":"https://picsum.photos/id/120/4928/3264"},
-{"id":"112","author":"Zugr","width":4200,"height":2800,"url":"https://unsplash.com/photos/kmF_Aq8gkp0","download_url":"https://picsum.photos/id/112/4200/2800"},
-{"id":"129","author":"Charlie Foster","width":4910,"height":3252,"url":"https://unsplash.com/photos/A88emaZe7d8","download_url":"https://picsum.photos/id/129/4910/3252"},
-]
+  const columns = [
+    {
+      title: 'Membro',
+      dataIndex: 'nome',
+      key: 'nome',
+    },
+    {
+      title: 'Início',
+      dataIndex: 'inicio',
+      key: 'inicio',
+    },
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
+      title: '', 
+      key: 'action',
+      render: (_, record) => ( 
+        <Button 
+          type="default" 
+          onClick={handleLogout} 
+          style={{ width: '100px' }}
+        >
+          Deslogar
+        </Button>
+      ),
+    },
+  ];
 
 
-return (
+  const listaSessoes = Array.isArray(sessoes)
+    ? sessoes.map(sessao => ({
+        key: sessao.id, 
+        nome: sessao.nome, 
+        inicio: sessao.inicio,
+        id: sessao.id,
+      }))
+    : [];
 
-<Container>
-<StyledForm onSubmit={handleSubmit(response)}>
-</StyledForm>
-<h2>Seja bem vindo(a) {usuario.nome}</h2>
-{isLoading ? (
-<p style={{ color: "white" }}>carregando</p>) : (
-<div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-{listaUsuarios.map((usuario) => (
-<Usuario usuario ={usuario}/>
-))}
-</div>
-)}
+  const images = [
+    {"id":"102","author":"Ben Moore","width":4320,"height":3240,"url":"https://unsplash.com/photos/pJILiyPdrXI","download_url":"https://picsum.photos/id/102/4320/3240"},
+    {"id":"103","author":"Ilham Rahmansyah","width":2592,"height":1936,"url":"https://unsplash.com/photos/DwTZwZYi9Ww","download_url":"https://picsum.photos/id/103/2592/1936"},
+    {"id":"106","author":"Arvee Marie","width":2592,"height":1728,"url":"https://unsplash.com/photos/YnfGtpt2gf4","download_url":"https://picsum.photos/id/106/2592/1728"},
+    {"id":"108","author":"Florian Klauer","width":2000,"height":1333,"url":"https://unsplash.com/photos/t1mqA3V3-7g","download_url":"https://picsum.photos/id/108/2000/1333"},
+    {"id":"120","author":"Guillaume","width":4928,"height":3264,"url":"https://unsplash.com/photos/_DA3D5P71qs","download_url":"https://picsum.photos/id/120/4928/3264"},
+    {"id":"112","author":"Zugr","width":4200,"height":2800,"url":"https://unsplash.com/photos/kmF_Aq8gkp0","download_url":"https://picsum.photos/id/112/4200/2800"},
+    {"id":"129","author":"Charlie Foster","width":4910,"height":3252,"url":"https://unsplash.com/photos/A88emaZe7d8","download_url":"https://picsum.photos/id/129/4910/3252"},
+  ];
 
-<StyledCrsl>
-<Carousel autoPlay infiniteLoop showThumbs={false}>
-{
-images.map (image => <img src={image.download_url}/>)
+  return (
+    <Container>
+      <StyledCrsl>
+        <Carousel autoPlay infiniteLoop showThumbs={false}>
+          {
+            images.map (image => <img key={image.id} src={image.download_url} alt={`Image by ${image.author}`}/>)
+          }
+        </Carousel>
+      </StyledCrsl>
+
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <>
+          <BotaoPadrao type="primary" onClick={showModal}>
+            Fazer Login 
+          </BotaoPadrao> 
+          
+          <Modal
+            title="Você deseja mesmo fazer login?"
+            closable={{ 'aria-label': 'Custom Close Button' }}
+            open={isModalOpen}
+            onOk={handleSubmit(onSubmit)} 
+            confirmLoading={isCreatingSessao} 
+            onCancel={handleCancel}
+          >
+            <p>Você tem certeza que deseja fazer esse login?</p>
+          </Modal>
+        </>
+      </StyledForm>
+
+      <div style={{ width: '80%', margin: '20px auto' }}>
+        <Table
+          dataSource={listaSessoes}
+          columns={columns}
+          loading={isLoadingSessoes}
+        >
+        </Table>
+      </div>
+      
+      {isLoadingSessoes ? (
+        <p style={{ color: "white" }}>carregando sessões...</p>
+      ) : (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        </div>
+      )}
+      
+      <StyleBotaoDeslog type="button" onClick={handleLogout}>Deslogar</StyleBotaoDeslog>
+    </Container>
+  );
 }
-</Carousel>
-</StyledCrsl>
-</Container>
-)
-}
-
 
 export default Home;
