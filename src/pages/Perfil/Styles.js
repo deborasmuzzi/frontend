@@ -41,26 +41,34 @@ export const StyleBotaoPadrao = styled.button`
 `;
 
 export const StyledAntdModal = styled(Modal)`
-  .ant-modal-content {
-    background-color: black;
-    border-radius: 10px;
-  }
+.ant-modal-content {
+    background-color: white;
+    color: black;
+}
 
   .ant-modal-title {
-    color: yellow;
+    color: black;
+    background-color: white;
     font-size: 1.8em;
+    width: 100%;
   }
 
   .ant-modal-body {
-    background-color: #303030;
-    color: yellow;
+    background-color:white;
+    color:black;
+    font-size: 30px;
     padding: 30px;
   }
 
-  .ant-modal-footer {
-    background-color: #252525;
-    border-top: 1px solid #404040;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
+
+  
 `;
+
+
+export const StyledInput = styled.input`
+border-color: black;
+width: 200px;
+height: 40px;
+border-radius: 10px;
+
+`

@@ -11,7 +11,7 @@ export const useAuthStore = create(
                 const {usuario} = jwtDecode(token);
                 set({token, usuario});
             },
-            setUsuario: (usuario) => setUsuario({usuario}),
+            setUsuario: (usuario) => set({usuario}),
             clearAuth : () => set({token: null, usuario: null}),
  
 }),

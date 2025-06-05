@@ -1,5 +1,5 @@
 import {useQuery, useMutation} from "@tanstack/react-query"
-import { CreateSessao,  DeleteUsuario, GetSessoes} from "../services/api/endpoints"
+import { CreateSessao,  DeleteSessao,  DeleteUsuario, GetSessoes} from "../services/api/endpoints"
 
 
 export function useCreateSessao({
@@ -17,9 +17,10 @@ export function useGetSessoes({onSuccess = () => {}, onError = () => {}, } = {})
     onError});
 } 
 
-
-export function useDeleteSessao({
-    onSuccess = () => {}, 
-    onError = () => {},
-     } = {})
-{return useMutation({mutationFn: DeleteSessao, onSuccess, onError});}
+export function useDeleteSessao({ onSuccess, onError } = {}) {
+  return useMutation({
+    mutationFn: ({ id_usuario }) => DeleteSessao(id_usuario),
+    onSuccess,
+    onError,
+  });
+}

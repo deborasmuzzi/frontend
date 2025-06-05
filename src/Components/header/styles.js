@@ -42,9 +42,8 @@ export const StyleBotaoDeslog = styled.button`
 export const StyledLink = styled(Link)`
     text-decoration: none;
     color: black;
-    font-weight: bold;
     transition: color 0.3s;
-    
+    margin-right: 200px;
 
     &:hover {
         color: #005fa3;

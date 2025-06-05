@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Table } from "antd";
 export const Container = styled.div`
     display: flex;
     justify-content: center; 
@@ -96,3 +96,19 @@ font-size: 20px;
 
   }
 `;
+
+export const StyledTable = styled(Table)`
+.ant-table-thead > tr > th {
+    background: #ffd100;
+    color: black;
+    font-weight: bold;
+
+  }
+
+  .ant-table-tbody > tr > td {
+    background:rgb(88, 86, 86);
+    color: white;
+  }
+`;
+
+

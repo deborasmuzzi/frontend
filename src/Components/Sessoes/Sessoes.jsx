@@ -1,18 +1,18 @@
 import { Container, Dados, Dado, Nome, Valor } from "./Styles";
 
+export default function Sessao({ sessao }) {
+  if (!sessao || !sessao.id_usuario) {
+    return <Container></Container>;
+  }
 
-export default function Sessao ({id_usuario}){
-    return (
-            <Container>
-                    <Nome>{id_usuario.nome}</Nome>
-                    <Dados>
-                        <Dado>
-                            Inicio: <Valor>{id_usuario.timeStamps}</Valor>
-                        </Dado>
-                        <Dado>
-                            id: <Valor>{id_usuario}</Valor>
-                        </Dado>
-                    </Dados>
-                </Container>
-    );
+  return (
+    <Container>
+      <Nome>{sessao.id_usuario.nome}</Nome>
+      <Dados>
+        <Dado>
+          ID: <Valor>{sessao.id_usuario._id}</Valor>
+        </Dado>
+      </Dados>
+    </Container>
+  );
 }

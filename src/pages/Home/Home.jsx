@@ -1,7 +1,6 @@
-import { Container, StyledCrsl } from "./Styles";
-import { StyledForm, StyleBotaoDeslog} from "./Styles";
+import { Container, StyledCrsl, StyledForm, StyleBotaoDeslog, StyledTable } from "./Styles";
 import {useForm} from "react-hook-form";
-import { useCreateSessao, useGetSessoes} from "../../hooks/sessoes";
+import { useCreateSessao, useDeleteSessao, useGetSessoes} from "../../hooks/sessoes";
 import { Carousel} from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useQueryClient } from "@tanstack/react-query";
@@ -12,12 +11,13 @@ import { Button, Modal, Table } from 'antd';
 import BotaoPadrao from "../../Components/BotaoHome/BotaoHome"
 import { useAuthStore } from "../../stores/auth";
 import { toast } from "react-toastify";
-
+import { DeleteOutlined } from '@ant-design/icons';
 
 
 function Home(){
   const clearAuth = useAuthStore((state) => state.clearAuth);
-  const usuario = useAuthStore((state) => state.usuario); 
+  const usuario = useAuthStore((state) => state.usuario);
+   
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
@@ -48,7 +48,7 @@ function Home(){
       console.error("Usuário não encontrado. Você está logado?")
     }
     else {
-      postSessao({id_usuario: usuario?._id});
+      postSessao({ id_usuario: usuario._id });
     }
   };
 
@@ -65,25 +65,27 @@ function Home(){
     navigate("/"); 
   };
 
-function response(data){
-postSessao(data);
-console.log("dados:", data);
-reset();
-}
-
+const { mutate: deleteSessao } = useDeleteSessao({
+  onSuccess: () => {
+    toast.success('Sessão deletada!');
+  },
+  onError: (error) => {
+    toast.error('Erro ao deletar sessão.');
+  },
+});
   const columns = [
     {
-      title: 'Membro',
+      title: 'MEMBRO',
       dataIndex: 'nome',
       key: 'nome',
     },
     {
-      title: 'Início',
+      title: 'CHEGADA',
       dataIndex: 'inicio',
       key: 'inicio',
     },
     {
-      title: 'ID',
+      title: 'TEMPO',
       dataIndex: 'id',
       key: 'id',
     },
@@ -91,26 +93,26 @@ reset();
       title: '', 
       key: 'action',
       render: (_, record) => ( 
-        <Button 
+       <Button 
           type="default" 
-          onClick={handleLogout} 
+          onClick={() => deleteSessao({ id_usuario: sessao.id_usuario._id })}
           style={{ width: '100px' }}
+          icon={<DeleteOutlined />}
         >
-          Deslogar
         </Button>
       ),
     },
   ];
 
 
-  const listaSessoes = Array.isArray(sessoes)
-    ? sessoes.map(sessao => ({
-        key: sessao.id, 
-        nome: sessao.nome, 
-        inicio: sessao.inicio,
-        id: sessao.id,
-      }))
-    : [];
+const listaSessoes = Array.isArray(sessoes)
+  ? sessoes.map(sessao => ({
+      key: sessao.id, 
+      nome: sessao.id_usuario ? sessao.id_usuario.nome : "Usuário não disponível",
+      inicio: sessao.inicio,
+      tempo: sessao.tempo,
+    }))
+  : [];
 
   const images = [
     {"id":"102","author":"Ben Moore","width":4320,"height":3240,"url":"https://unsplash.com/photos/pJILiyPdrXI","download_url":"https://picsum.photos/id/102/4320/3240"},
@@ -152,20 +154,23 @@ reset();
       </StyledForm>
 
       <div style={{ width: '80%', margin: '20px auto' }}>
-        <Table
+        <StyledTable
           dataSource={listaSessoes}
           columns={columns}
           loading={isLoadingSessoes}
+            pagination={false}
         >
-        </Table>
+        </StyledTable>
       </div>
       
-      {isLoadingSessoes ? (
-        <p style={{ color: "white" }}>carregando sessões...</p>
-      ) : (
+      {!isLoadingSessoes && Array.isArray(sessoes) && sessoes.length > 0 && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        </div>
+         {sessoes.map(sessao => (
+         <Sessao key={sessao._id} usuario={sessao.id_usuario} />
+       ))}
+      </div>
       )}
+
       
       <StyleBotaoDeslog type="button" onClick={handleLogout}>Deslogar</StyleBotaoDeslog>
     </Container>

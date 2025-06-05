@@ -19,25 +19,12 @@ export function useGetUsuarios({onSuccess = () => {}, onError = () => {}, } = {}
 
 
 export function useUpdateUsuario({
-    onSuccess = () => {}, 
-    onError = () => {},
-     } = {})
-{return useMutation({
-        mutationFn: async (usuarioData) => {
-            if (!usuarioData.id) {
-                throw new Error("ID do usuário é necessário para atualizar o perfil.");
-            }
-            const usuarioId = usuairoData.id;
-            const payload = { ...usuarioData };
-            delete payload.id;
+   onSuccess = () => {}, 
+      onError = () => {},
+       } = {})
+  {return useMutation({mutationFn: UpdateUsuario, onSuccess, onError});
+  } 
 
-            const { data } = await api.put(`/usuario/${id}`, payload);
-            return data;
-        },
-        onSuccess,
-        onError,
-    });
-}
 
 export function useDeleteUsuario({
     onSuccess = () => {}, 
