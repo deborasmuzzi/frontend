@@ -11,7 +11,7 @@ import BotaoPadrao from "../../Components/BotaoHome/BotaoHome";
 import { useAuthStore } from "../../stores/auth";
 import { toast } from "react-toastify";
 import { DeleteOutlined } from '@ant-design/icons';
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'; // Make sure dayjs is imported
 import utc from 'dayjs/plugin/utc';
 import duration from 'dayjs/plugin/duration';
 import React, { useState, useEffect } from 'react';
@@ -25,25 +25,78 @@ function Home() {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
-  
+  const [currentSessoesDisplay, setCurrentSessoesDisplay] = useState([]);
 
   const {
     handleSubmit,
-    register,
-    formState: { errors },
   } = useForm();
 
   const { mutate: postSessao, isPending: isCreatingSessao } = useCreateSessao({
     onSuccess: () => {
       toast.success("Sessão iniciada com sucesso");
       setIsModalOpen(false);
+      queryClient.invalidateQueries(['sessoes']);
     },
     onError: () => {
       toast.error("Erro ao iniciar sessão");
     }
   });
 
-  const { data: sessoes, isLoading: isLoadingSessoes } = useGetSessoes({});
+  const { data: fetchedSessoes, isLoading: isLoadingSessoes } = useGetSessoes({});
+
+  // Functions for time formatting and calculation using dayjs for parsing
+  const formatarHora = (dateString) => {
+    const date = dayjs(dateString); // Use dayjs to parse the string
+    if (!date.isValid()) {
+      console.error("Invalid date string for formatarHora:", dateString);
+      return "N/A";
+    }
+    // format as HH:mm based on your Tabela.jsx's 'arrival' column
+    return date.format('HH:mm');
+  };
+
+  const calcularDuracao = (dateString) => {
+    const start = dayjs(dateString).utc(); // Parse with dayjs and ensure UTC
+    if (!start.isValid()) {
+      console.error("Invalid date string for calcularDuracao:", dateString);
+      return "N/A";
+    }
+
+    const end = dayjs().utc(); // Current UTC time using dayjs
+
+    const diffDuration = dayjs.duration(end.diff(start)); // Get duration object
+
+    const horas = diffDuration.hours();
+    const minutos = diffDuration.minutes();
+    const segundos = diffDuration.seconds();
+
+    const hoursFormatted = String(horas).padStart(2, '0');
+    const minutesFormatted = String(minutos).padStart(2, '0');
+    const secondsFormatted = String(segundos).padStart(2, '0');
+
+    return `${hoursFormatted}:${minutesFormatted}:${secondsFormatted}`;
+  };
+
+  useEffect(() => {
+    if (fetchedSessoes) {
+      setCurrentSessoesDisplay(fetchedSessoes.map(sessao => ({
+        ...sessao,
+        displayDuration: calcularDuracao(sessao.inicio),
+        displayArrival: formatarHora(sessao.inicio)
+      })));
+    }
+
+    const intervalId = setInterval(() => {
+      setCurrentSessoesDisplay((prevSessoes) =>
+        prevSessoes.map((sessao) => ({
+          ...sessao,
+          displayDuration: calcularDuracao(sessao.inicio),
+        }))
+      );
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [fetchedSessoes]);
 
   const onSubmit = () => {
     if (!usuario?._id) {
@@ -70,6 +123,7 @@ function Home() {
   const { mutate: deleteSessao } = useDeleteSessao({
     onSuccess: () => {
       toast.success('Sessão deletada!');
+      queryClient.invalidateQueries(['sessoes']);
     },
     onError: () => {
       toast.error('Erro ao deletar sessão.');
@@ -79,23 +133,26 @@ function Home() {
   const columns = [
     {
       title: 'MEMBRO',
-      dataIndex: 'nome',
-      key: 'nome',
+      dataIndex: 'member',
+      key: 'member',
+      render: (text, record) => (
+        <div>
+          <div style={{ fontWeight: 'bold' }}>{record.member}</div>
+          <div style={{ color: '#FDDD00' }}>{record.role}</div>
+        </div>
+      ),
     },
     {
       title: 'CHEGADA',
-      dataIndex: 'inicio',
-      key: 'inicio',
-      render: (inicio) => dayjs(inicio).format('DD/MM/YYYY HH:mm:ss'),
+      dataIndex: 'displayArrival',
+      key: 'displayArrival',
+      render: (text) => text,
     },
     {
       title: 'TEMPO',
-      dataIndex: 'tempo',
-      key: 'tempo',
-      render: (inicio) => {
-        const duration = dayjs.duration(dayjs().utc().diff(dayjs(inicio).utc()));
-        return `${duration.hours()}h ${duration.minutes()}m ${duration.seconds()}s`;
-      },
+      dataIndex: 'displayDuration',
+      key: 'displayDuration',
+      render: (text) => text,
     },
     {
       title: '',
@@ -111,13 +168,14 @@ function Home() {
     },
   ];
 
-  const listaSessoes = Array.isArray(sessoes)
-    ? sessoes.map(sessao => ({
-        key: sessao.id,
-        nome: sessao.id_usuario ? sessao.id_usuario.nome : "Usuário não disponível",
-        inicio: sessao.inicio,
-        tempo: sessao.inicio,
+  const listaSessoes = Array.isArray(currentSessoesDisplay)
+    ? currentSessoesDisplay.map(sessao => ({
+        key: sessao._id,
         id_usuario: sessao.id_usuario,
+        member: sessao.id_usuario ? sessao.id_usuario.nome : "Usuário não disponível",
+        role: sessao.id_usuario ? sessao.id_usuario.cargo : "",
+        displayArrival: sessao.displayArrival,
+        displayDuration: sessao.displayDuration,
       }))
     : [];
 
@@ -144,15 +202,15 @@ function Home() {
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <>
           <BotaoPadrao type="primary" onClick={showModal}>
-            Fazer Login 
-          </BotaoPadrao> 
-          
+            Fazer Login
+          </BotaoPadrao>
+
           <Modal
             title="Você deseja mesmo fazer login?"
             closable={{ 'aria-label': 'Custom Close Button' }}
             open={isModalOpen}
-            onOk={handleSubmit(onSubmit)} 
-            confirmLoading={isCreatingSessao} 
+            onOk={handleSubmit(onSubmit)}
+            confirmLoading={isCreatingSessao}
             onCancel={handleCancel}
           >
             <p>Você tem certeza que deseja fazer esse login?</p>
@@ -165,20 +223,11 @@ function Home() {
           dataSource={listaSessoes}
           columns={columns}
           loading={isLoadingSessoes}
-            pagination={false}
+          pagination={false}
         >
         </StyledTable>
       </div>
-      
-      {!isLoadingSessoes && Array.isArray(sessoes) && sessoes.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-         {sessoes.map(sessao => (
-         <Sessao key={sessao._id} usuario={sessao.id_usuario} />
-       ))}
-      </div>
-      )}
 
-      
       <StyleBotaoDeslog type="button" onClick={handleLogout}>Deslogar</StyleBotaoDeslog>
     </Container>
   );
