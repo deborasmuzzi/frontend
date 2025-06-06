@@ -1,26 +1,31 @@
 import { Container, StyledCrsl, StyledForm, StyleBotaoDeslog, StyledTable } from "./Styles";
-import {useForm} from "react-hook-form";
-import { useCreateSessao, useDeleteSessao, useGetSessoes} from "../../hooks/sessoes";
-import { Carousel} from "react-responsive-carousel"
+import { useForm } from "react-hook-form";
+import { useCreateSessao, useDeleteSessao, useGetSessoes } from "../../hooks/sessoes";
+import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useQueryClient } from "@tanstack/react-query";
 import Sessao from "../../Components/Sessoes/Sessoes";
-import React, { useState} from 'react';
 import { useNavigate } from "react-router-dom";
-import { Button, Modal, Table } from 'antd';
-import BotaoPadrao from "../../Components/BotaoHome/BotaoHome"
+import { Button, Modal } from 'antd';
+import BotaoPadrao from "../../Components/BotaoHome/BotaoHome";
 import { useAuthStore } from "../../stores/auth";
 import { toast } from "react-toastify";
 import { DeleteOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import duration from 'dayjs/plugin/duration';
+import React, { useState, useEffect } from 'react';
 
+dayjs.extend(utc);
+dayjs.extend(duration);
 
-function Home(){
+function Home() {
   const clearAuth = useAuthStore((state) => state.clearAuth);
   const usuario = useAuthStore((state) => state.usuario);
-   
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
+  
 
   const {
     handleSubmit,
@@ -28,27 +33,24 @@ function Home(){
     formState: { errors },
   } = useForm();
 
-
   const { mutate: postSessao, isPending: isCreatingSessao } = useCreateSessao({
-    onSuccess: (usuario) => {
-     toast.success("usuario cadastrado com sucesso");
-      setIsModalOpen(false); 
-      
+    onSuccess: () => {
+      toast.success("Sessão iniciada com sucesso");
+      setIsModalOpen(false);
     },
-    onError: (error) => {
-      toast.error("Erro ao iniciar sessão:");
+    onError: () => {
+      toast.error("Erro ao iniciar sessão");
     }
   });
 
-
-  const {data: sessoes, isLoading: isLoadingSessoes} = useGetSessoes({});
+  const { data: sessoes, isLoading: isLoadingSessoes } = useGetSessoes({});
 
   const onSubmit = () => {
-    if (!usuario?._id){
-      console.error("Usuário não encontrado. Você está logado?")
-    }
-    else {
-      postSessao({ id_usuario: usuario._id });
+    if (!usuario?._id) {
+      console.error("Usuário não encontrado. Você está logado?");
+    } else {
+      const timestamp = dayjs().utc().format(); // Obtém a data e hora atual em UTC
+      postSessao({ id_usuario: usuario._id, inicio: timestamp });
     }
   };
 
@@ -62,17 +64,18 @@ function Home(){
 
   const handleLogout = () => {
     clearAuth();
-    navigate("/"); 
+    navigate("/");
   };
 
-const { mutate: deleteSessao } = useDeleteSessao({
-  onSuccess: () => {
-    toast.success('Sessão deletada!');
-  },
-  onError: (error) => {
-    toast.error('Erro ao deletar sessão.');
-  },
-});
+  const { mutate: deleteSessao } = useDeleteSessao({
+    onSuccess: () => {
+      toast.success('Sessão deletada!');
+    },
+    onError: () => {
+      toast.error('Erro ao deletar sessão.');
+    },
+  });
+
   const columns = [
     {
       title: 'MEMBRO',
@@ -83,38 +86,40 @@ const { mutate: deleteSessao } = useDeleteSessao({
       title: 'CHEGADA',
       dataIndex: 'inicio',
       key: 'inicio',
+      render: (inicio) => dayjs(inicio).format('DD/MM/YYYY HH:mm:ss'),
     },
     {
       title: 'TEMPO',
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'tempo',
+      key: 'tempo',
+      render: (inicio) => {
+        const duration = dayjs.duration(dayjs().utc().diff(dayjs(inicio).utc()));
+        return `${duration.hours()}h ${duration.minutes()}m ${duration.seconds()}s`;
+      },
     },
     {
-      title: '', 
+      title: '',
       key: 'action',
-      render: (_, record) => ( 
-       <Button 
-          type="default" 
+      render: (_, record) => (
+        <Button
+          type="default"
           onClick={() => deleteSessao({ id_usuario: record.id_usuario._id })}
           style={{ width: '100px' }}
           icon={<DeleteOutlined />}
-        >
-        </Button>
+        />
       ),
     },
   ];
 
-
-const listaSessoes = Array.isArray(sessoes)
-  ? sessoes.map(sessao => ({
-      key: sessao.id,
-      nome: sessao.id_usuario ? sessao.id_usuario.nome : "Usuário não disponível",
-      inicio: sessao.inicio,
-      tempo: sessao.tempo,
-      id_usuario: sessao.id_usuario, 
-    }))
-  : [];
-  
+  const listaSessoes = Array.isArray(sessoes)
+    ? sessoes.map(sessao => ({
+        key: sessao.id,
+        nome: sessao.id_usuario ? sessao.id_usuario.nome : "Usuário não disponível",
+        inicio: sessao.inicio,
+        tempo: sessao.inicio,
+        id_usuario: sessao.id_usuario,
+      }))
+    : [];
 
   const images = [
     {"id":"102","author":"Ben Moore","width":4320,"height":3240,"url":"https://unsplash.com/photos/pJILiyPdrXI","download_url":"https://picsum.photos/id/102/4320/3240"},
