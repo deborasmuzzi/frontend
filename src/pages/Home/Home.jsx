@@ -95,7 +95,7 @@ const { mutate: deleteSessao } = useDeleteSessao({
       render: (_, record) => ( 
        <Button 
           type="default" 
-          onClick={() => deleteSessao({ id_usuario: sessao.id_usuario._id })}
+          onClick={() => deleteSessao({ id_usuario: record.id_usuario._id })}
           style={{ width: '100px' }}
           icon={<DeleteOutlined />}
         >
@@ -107,12 +107,14 @@ const { mutate: deleteSessao } = useDeleteSessao({
 
 const listaSessoes = Array.isArray(sessoes)
   ? sessoes.map(sessao => ({
-      key: sessao.id, 
+      key: sessao.id,
       nome: sessao.id_usuario ? sessao.id_usuario.nome : "Usuário não disponível",
       inicio: sessao.inicio,
       tempo: sessao.tempo,
+      id_usuario: sessao.id_usuario, 
     }))
   : [];
+  
 
   const images = [
     {"id":"102","author":"Ben Moore","width":4320,"height":3240,"url":"https://unsplash.com/photos/pJILiyPdrXI","download_url":"https://picsum.photos/id/102/4320/3240"},
